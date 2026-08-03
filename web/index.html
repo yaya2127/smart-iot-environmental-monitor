@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart IoT Environmental Monitor | Live Telemetry Dashboard</title>
+  
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="dashboard-header">
+    <div class="container header-flex">
+      <div class="brand">
+        <div class="icon-box"><i class="fas fa-microchip"></i></div>
+        <div>
+          <h1>Smart IoT Environmental Monitor</h1>
+          <p>AASTU Computer Engineering Senior Hardware Telemetry System</p>
+        </div>
+      </div>
+      <div class="connection-status online">
+        <span class="status-dot"></span>
+        <span>Device Status: ONLINE (ATmega328P)</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    
+    <!-- Gauges Grid -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="card-header">
+          <span><i class="fas fa-thermometer-half"></i> Ambient Temperature</span>
+          <span class="badge" id="temp-badge">Normal</span>
+        </div>
+        <div class="metric-value"><span id="val-temp">24.5</span> <span class="unit">°C</span></div>
+        <div class="progress-bar"><div class="fill temp-fill" id="bar-temp" style="width: 45%;"></div></div>
+        <div class="range-info">Threshold: 35.0 °C Max</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="card-header">
+          <span><i class="fas fa-tint"></i> Relative Humidity</span>
+          <span class="badge" id="humid-badge">Optimal</span>
+        </div>
+        <div class="metric-value"><span id="val-humid">58.0</span> <span class="unit">%</span></div>
+        <div class="progress-bar"><div class="fill humid-fill" id="bar-humid" style="width: 58%;"></div></div>
+        <div class="range-info">Range: 30% — 70%</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="card-header">
+          <span><i class="fas fa-wind"></i> Gas / Air Quality</span>
+          <span class="badge" id="gas-badge">Clean</span>
+        </div>
+        <div class="metric-value"><span id="val-gas">185</span> <span class="unit">PPM</span></div>
+        <div class="progress-bar"><div class="fill gas-fill" id="bar-gas" style="width: 25%;"></div></div>
+        <div class="range-info">Threshold: 400 PPM Hazard</div>
+      </div>
+    </div>
+
+    <!-- Live Telemetry Stream & Controls -->
+    <div class="control-panel">
+      <div class="panel-header">
+        <h3><i class="fas fa-stream"></i> Real-Time Telemetry Event Log</h3>
+        <button class="btn-sim" id="trigger-sim-btn"><i class="fas fa-bolt"></i> Simulate Hazard Trigger</button>
+      </div>
+
+      <div class="log-box" id="log-box">
+        <div class="log-line">[SYSTEM BOOT] Microcontroller firmware initialized. Sensors online.</div>
+        <div class="log-line">[TELEMETRY] Temp: 24.5°C | Humidity: 58.0% | Gas: 185 PPM (Normal)</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="dashboard-footer">
+    <div class="container">
+      <p>&copy; 2026 Smart IoT Environmental Monitor | Developed by <strong>Yared Kinetibeb Tesfaye</strong> (AASTU Computer Engineering)</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
