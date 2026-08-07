@@ -1,16 +1,18 @@
 /* ==========================================================================
-   IoT Telemetry Dashboard - Stylesheet
+   Industrial Cyber-Amber IoT Telemetry Dashboard - Stylesheet
    ========================================================================== */
 
 :root {
-  --bg-dark: #090d16;
-  --card-bg: #111827;
-  --border: #1f2937;
-  --gold: #dfa951;
-  --text-main: #f9fafb;
-  --text-muted: #9ca3af;
-  --success: #10b981;
-  --hazard: #ef4444;
+  --bg-dark: #0c0a09;
+  --card-bg: #1c1917;
+  --border: #292524;
+  --amber: #f97316;
+  --gold: #eab308;
+  --red: #ef4444;
+  --green: #22c55e;
+  --text-main: #fafaf9;
+  --text-muted: #a8a29e;
+  --radius: 12px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,10 +24,11 @@ body {
   line-height: 1.5;
 }
 
-.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
-.dashboard-header {
-  background: #030712;
+/* Header */
+.industrial-header {
+  background: #090605;
   border-bottom: 1px solid var(--border);
   padding: 20px 0;
 }
@@ -33,151 +36,172 @@ body {
 .header-flex { display: flex; justify-content: space-between; align-items: center; }
 
 .brand { display: flex; align-items: center; gap: 16px; }
-.icon-box {
+.icon-amber {
   width: 48px;
   height: 48px;
-  background: var(--gold);
-  color: #030712;
+  background: var(--amber);
+  color: #0c0a09;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
+  box-shadow: 0 0 20px rgba(249,115,22,0.4);
 }
 
-.brand h1 { font-family: 'Outfit', sans-serif; font-size: 1.4rem; }
-.brand p { font-size: 0.85rem; color: var(--gold); }
+.brand h1 { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; letter-spacing: 0.5px; }
+.brand p { font-size: 0.82rem; color: var(--gold); }
 
-.connection-status {
+.system-status {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(16,185,129,0.1);
-  border: 1px solid rgba(16,185,129,0.3);
-  color: var(--success);
-  padding: 8px 16px;
+  padding: 8px 18px;
   border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.status-dot {
-  width: 10px;
-  height: 10px;
-  background: var(--success);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--success);
-}
-
-.main-content { padding: 40px 0; }
-
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 32px;
-}
-
-.metric-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 24px;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-}
-
-.badge {
-  background: rgba(16,185,129,0.15);
-  color: var(--success);
-  padding: 4px 10px;
-  border-radius: 50px;
-  font-size: 0.75rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
   font-weight: 700;
 }
 
-.metric-value {
-  font-family: 'Outfit', sans-serif;
-  font-size: 2.8rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 16px;
-}
+.system-status.normal { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+.system-status.hazard { background: rgba(239,68,68,0.2); color: var(--red); border: 1px solid var(--red); box-shadow: 0 0 20px rgba(239,68,68,0.4); }
 
-.metric-value .unit { font-size: 1.2rem; color: var(--gold); }
+.pulse-ring { width: 10px; height: 10px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
 
-.progress-bar {
-  height: 8px;
-  background: #1f2937;
-  border-radius: 50px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
+/* Main Layout */
+.main-layout { padding: 36px 0 60px; }
 
-.fill { height: 100%; transition: width 0.5s ease; }
-.temp-fill { background: #f97316; }
-.humid-fill { background: #3b82f6; }
-.gas-fill { background: var(--gold); }
+/* Gauges Grid */
+.gauges-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 32px; }
 
-.range-info { font-size: 0.78rem; color: var(--text-muted); }
-
-.control-panel {
+.gauge-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius);
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.panel-header {
+.card-title {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.card-title i { color: var(--amber); }
+
+.threshold-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: #292524;
+  padding: 4px 10px;
+  border-radius: 4px;
+  color: var(--gold);
+}
+
+.threshold-tag.danger { color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+
+/* SVG Circular Gauge */
+.svg-gauge-box {
+  position: relative;
+  width: 160px;
+  height: 160px;
   margin-bottom: 16px;
 }
 
-.panel-header h3 { font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
-.panel-header h3 i { color: var(--gold); }
+.gauge-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.gauge-bg { fill: none; stroke: #292524; stroke-width: 10; }
 
-.btn-sim {
-  background: #dc2626;
+.gauge-bar {
+  fill: none;
+  stroke-width: 10;
+  stroke-dasharray: 314;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s ease, stroke 0.3s ease;
+}
+
+.temp-bar { stroke: var(--amber); }
+.humid-bar { stroke: #06b6d4; }
+.gas-bar { stroke: var(--gold); }
+
+.gauge-display {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-val { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1; }
+.gauge-unit { font-size: 0.85rem; color: var(--amber); font-weight: 700; margin-top: 4px; }
+
+.gauge-foot { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Dashboard Bottom Grid */
+.dashboard-bottom-grid { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 24px; margin-bottom: 32px; }
+
+.chart-card, .control-card, .terminal-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.live-pulse { color: var(--green); font-size: 0.75rem; font-weight: 700; }
+
+.control-body { display: flex; flex-direction: column; gap: 20px; }
+
+.hazard-trigger-btn {
+  background: var(--red);
   color: #fff;
   border: none;
-  padding: 10px 18px;
+  padding: 16px;
   border-radius: 8px;
-  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
   cursor: pointer;
+  box-shadow: 0 0 20px rgba(239,68,68,0.4);
+  transition: transform 0.2s ease;
 }
 
-.btn-sim:hover { background: #ef4444; }
+.hazard-trigger-btn:hover { transform: scale(1.02); }
 
-.log-box {
-  background: #030712;
+.hardware-indicators { display: flex; flex-direction: column; gap: 12px; }
+.ind-item { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: var(--text-muted); }
+
+.ind-dot { width: 14px; height: 14px; border-radius: 50%; }
+.ind-dot.green { background: var(--green); box-shadow: 0 0 10px var(--green); }
+.ind-dot.red-off { background: #450a0a; border: 1px solid #7f1d1d; }
+.ind-dot.red-on { background: var(--red); box-shadow: 0 0 12px var(--red); }
+.ind-dot.amber-off { background: #451a03; border: 1px solid #78350f; }
+.ind-dot.amber-on { background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+
+/* Terminal Card */
+.terminal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.85rem; color: var(--amber); }
+.terminal-head button { background: none; border: none; color: var(--text-muted); cursor: pointer; }
+
+.terminal-body {
+  background: #000000;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 16px;
-  height: 200px;
+  height: 180px;
   overflow-y: auto;
   font-family: monospace;
   font-size: 0.85rem;
-  color: #38bdf8;
 }
 
 .log-line { margin-bottom: 6px; }
-.log-line.hazard { color: #f87171; font-weight: 700; }
+.log-line.info { color: #38bdf8; }
+.log-line.hazard { color: var(--red); font-weight: 700; }
 
-.dashboard-footer {
-  border-top: 1px solid var(--border);
-  padding: 24px 0;
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.dashboard-footer strong { color: var(--gold); }
+.industrial-footer { background: #090605; border-top: 1px solid var(--border); padding: 24px 0; text-align: center; font-size: 0.85rem; color: var(--text-muted); }
+.industrial-footer strong { color: var(--amber); }

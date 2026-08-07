@@ -3,85 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart IoT Environmental Monitor | Live Telemetry Dashboard</title>
+  <meta name="description" content="Industrial IoT Environmental Telemetry & Gas Leakage Monitoring System - Real-time SVG circular gauges, historical canvas telemetry charts, and hazard alarm simulation.">
+  <title>Smart IoT Environmental & Hazard Monitor | Telemetry Dashboard</title>
+
+  <!-- Google Fonts: Orbitron & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- Google Fonts & Font Awesome -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header class="dashboard-header">
+  <!-- Industrial Header Bar -->
+  <header class="industrial-header">
     <div class="container header-flex">
       <div class="brand">
-        <div class="icon-box"><i class="fas fa-microchip"></i></div>
+        <div class="icon-amber"><i class="fas fa-radiation"></i></div>
         <div>
-          <h1>Smart IoT Environmental Monitor</h1>
-          <p>AASTU Computer Engineering Senior Hardware Telemetry System</p>
+          <h1>IoT Environmental & Hazard Monitor</h1>
+          <p>ATmega328P Firmware v2.4 | AASTU Hardware Senior Telemetry Station</p>
         </div>
       </div>
-      <div class="connection-status online">
-        <span class="status-dot"></span>
-        <span>Device Status: ONLINE (ATmega328P)</span>
+
+      <div class="system-status normal" id="sys-status">
+        <span class="pulse-ring"></span>
+        <span id="status-text">SYSTEM STANDBY (NORMAL)</span>
       </div>
     </div>
   </header>
 
-  <main class="container main-content">
-    
-    <!-- Gauges Grid -->
-    <div class="metrics-grid">
-      <div class="metric-card">
-        <div class="card-header">
-          <span><i class="fas fa-thermometer-half"></i> Ambient Temperature</span>
-          <span class="badge" id="temp-badge">Normal</span>
+  <main class="container main-layout">
+
+    <!-- Industrial Telemetry Gauges Grid -->
+    <div class="gauges-grid">
+      
+      <!-- Gauge 1: Temperature -->
+      <div class="gauge-card">
+        <div class="card-title">
+          <span><i class="fas fa-temperature-high"></i> Temperature (°C)</span>
+          <span class="threshold-tag">Max: 35.0 °C</span>
         </div>
-        <div class="metric-value"><span id="val-temp">24.5</span> <span class="unit">°C</span></div>
-        <div class="progress-bar"><div class="fill temp-fill" id="bar-temp" style="width: 45%;"></div></div>
-        <div class="range-info">Threshold: 35.0 °C Max</div>
+        
+        <div class="svg-gauge-box">
+          <svg class="gauge-svg" viewBox="0 0 120 120">
+            <circle class="gauge-bg" cx="60" cy="60" r="50"></circle>
+            <circle class="gauge-bar temp-bar" id="svg-bar-temp" cx="60" cy="60" r="50" style="stroke-dashoffset: 150;"></circle>
+          </svg>
+          <div class="gauge-display">
+            <span class="gauge-val" id="val-temp">24.5</span>
+            <span class="gauge-unit">°C</span>
+          </div>
+        </div>
+        <div class="gauge-foot">DHT22 Digital Sensor</div>
       </div>
 
-      <div class="metric-card">
-        <div class="card-header">
-          <span><i class="fas fa-tint"></i> Relative Humidity</span>
-          <span class="badge" id="humid-badge">Optimal</span>
+      <!-- Gauge 2: Relative Humidity -->
+      <div class="gauge-card">
+        <div class="card-title">
+          <span><i class="fas fa-droplet"></i> Relative Humidity (%)</span>
+          <span class="threshold-tag">Range: 30-70%</span>
         </div>
-        <div class="metric-value"><span id="val-humid">58.0</span> <span class="unit">%</span></div>
-        <div class="progress-bar"><div class="fill humid-fill" id="bar-humid" style="width: 58%;"></div></div>
-        <div class="range-info">Range: 30% — 70%</div>
+
+        <div class="svg-gauge-box">
+          <svg class="gauge-svg" viewBox="0 0 120 120">
+            <circle class="gauge-bg" cx="60" cy="60" r="50"></circle>
+            <circle class="gauge-bar humid-bar" id="svg-bar-humid" cx="60" cy="60" r="50" style="stroke-dashoffset: 130;"></circle>
+          </svg>
+          <div class="gauge-display">
+            <span class="gauge-val" id="val-humid">58.0</span>
+            <span class="gauge-unit">%</span>
+          </div>
+        </div>
+        <div class="gauge-foot">AM2302 Humidity Sensor</div>
       </div>
 
-      <div class="metric-card">
-        <div class="card-header">
-          <span><i class="fas fa-wind"></i> Gas / Air Quality</span>
-          <span class="badge" id="gas-badge">Clean</span>
+      <!-- Gauge 3: Gas & Methane PPM -->
+      <div class="gauge-card">
+        <div class="card-title">
+          <span><i class="fas fa-smog"></i> Methane & Gas (PPM)</span>
+          <span class="threshold-tag danger">Alarm: 400 PPM</span>
         </div>
-        <div class="metric-value"><span id="val-gas">185</span> <span class="unit">PPM</span></div>
-        <div class="progress-bar"><div class="fill gas-fill" id="bar-gas" style="width: 25%;"></div></div>
-        <div class="range-info">Threshold: 400 PPM Hazard</div>
+
+        <div class="svg-gauge-box">
+          <svg class="gauge-svg" viewBox="0 0 120 120">
+            <circle class="gauge-bg" cx="60" cy="60" r="50"></circle>
+            <circle class="gauge-bar gas-bar" id="svg-bar-gas" cx="60" cy="60" r="50" style="stroke-dashoffset: 200;"></circle>
+          </svg>
+          <div class="gauge-display">
+            <span class="gauge-val" id="val-gas">185</span>
+            <span class="gauge-unit">PPM</span>
+          </div>
+        </div>
+        <div class="gauge-foot">MQ-2 Analog Gas Sensor</div>
       </div>
+
     </div>
 
-    <!-- Live Telemetry Stream & Controls -->
-    <div class="control-panel">
-      <div class="panel-header">
-        <h3><i class="fas fa-stream"></i> Real-Time Telemetry Event Log</h3>
-        <button class="btn-sim" id="trigger-sim-btn"><i class="fas fa-bolt"></i> Simulate Hazard Trigger</button>
+    <!-- Live Telemetry Line Chart & Hazard Trigger Panel -->
+    <div class="dashboard-bottom-grid">
+      
+      <!-- Canvas Historical Chart -->
+      <div class="chart-card">
+        <div class="card-title">
+          <span><i class="fas fa-chart-line"></i> Live Telemetry Stream Graph</span>
+          <span class="live-pulse">● LIVE STREAM</span>
+        </div>
+        <canvas id="telemetry-chart" height="180"></canvas>
       </div>
 
-      <div class="log-box" id="log-box">
-        <div class="log-line">[SYSTEM BOOT] Microcontroller firmware initialized. Sensors online.</div>
-        <div class="log-line">[TELEMETRY] Temp: 24.5°C | Humidity: 58.0% | Gas: 185 PPM (Normal)</div>
+      <!-- Emergency Hazard Override Controls -->
+      <div class="control-card">
+        <div class="card-title">
+          <span><i class="fas fa-triangle-exclamation"></i> Emergency Hazard Controls</span>
+        </div>
+
+        <div class="control-body">
+          <button class="hazard-trigger-btn" id="hazard-btn">
+            <i class="fas fa-fire"></i> TRIGGER METHANE HAZARD ALARM
+          </button>
+          
+          <div class="hardware-indicators">
+            <div class="ind-item">
+              <span class="ind-dot green" id="ind-safe"></span>
+              <span>Green Status LED (Safe)</span>
+            </div>
+            <div class="ind-item">
+              <span class="ind-dot red-off" id="ind-alert"></span>
+              <span>Red Alert LED (Hazard)</span>
+            </div>
+            <div class="ind-item">
+              <span class="ind-dot amber-off" id="ind-buzzer"></span>
+              <span>1kHz Piezo Buzzer Tone</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Terminal Log Console -->
+    <div class="terminal-card">
+      <div class="terminal-head">
+        <span><i class="fas fa-terminal"></i> Serial Communication Telemetry Log (115200 Baud)</span>
+        <button id="clear-log-btn"><i class="fas fa-trash"></i> Clear Log</button>
+      </div>
+      <div class="terminal-body" id="log-box">
+        <div class="log-line info">[00:00:01] ATmega328P Firmware v2.4 initialized. All sensors online.</div>
+        <div class="log-line info">[00:00:02] SSD1306 OLED Graphic Display calibrated at I2C 0x3C.</div>
       </div>
     </div>
 
   </main>
 
-  <footer class="dashboard-footer">
+  <footer class="industrial-footer">
     <div class="container">
-      <p>&copy; 2026 Smart IoT Environmental Monitor | Developed by <strong>Yared Kinetibeb Tesfaye</strong> (AASTU Computer Engineering)</p>
+      <p>&copy; 2026 Smart IoT Environmental & Hazard Monitor | Developed by <strong>Yared Kinetibeb Tesfaye</strong> (AASTU Computer Engineering)</p>
     </div>
   </footer>
 
