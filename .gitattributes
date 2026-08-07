@@ -1,0 +1,6 @@
+# GitHub Linguist Language Override
+# Mark HTML/CSS files as vendored so GitHub displays C++ as primary language
+
+web/* linguist-vendored
+*.html linguist-vendored
+*.css linguist-vendored
