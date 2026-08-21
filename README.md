@@ -51,3 +51,10 @@ Developed by **Yared Kinetibeb Tesfaye**
 - **GitHub**: [@yaya2127](https://github.com/yaya2127)
 - **LinkedIn**: [Yared Kinetibeb](https://www.linkedin.com/in/yared-kinetibeb-3b788b350/)
 - **Email**: kinetibebyared@gmail.com
+
+
+## Hardware Pinout & Simulation
+- ATmega328P Pin 13 -> Alarm Indicator LED
+- ATmega328P Pin 08 -> Active Buzzer
+- ATmega328P Analog A0 -> MQ-2 Gas Sensor
+- ATmega328P Digital D2 -> DHT22 Temp/Humidity Sensor
