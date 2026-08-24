@@ -58,3 +58,7 @@ Developed by **Yared Kinetibeb Tesfaye**
 - ATmega328P Pin 08 -> Active Buzzer
 - ATmega328P Analog A0 -> MQ-2 Gas Sensor
 - ATmega328P Digital D2 -> DHT22 Temp/Humidity Sensor
+
+
+## Firmware Sampling Loop
+- ATmega328P C++ telemetry loop
