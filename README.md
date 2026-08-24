@@ -70,3 +70,5 @@ Developed by **Yared Kinetibeb Tesfaye**
 
 ## Pinout Table
 - Microcontroller pin allocations
+
+<!-- AVR build flags -->
