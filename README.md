@@ -66,3 +66,7 @@ Developed by **Yared Kinetibeb Tesfaye**
 
 ## Proteus VSM Netlist
 - Hardware simulation netlist file
+
+
+## Pinout Table
+- Microcontroller pin allocations
