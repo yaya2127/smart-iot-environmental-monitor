@@ -62,3 +62,7 @@ Developed by **Yared Kinetibeb Tesfaye**
 
 ## Firmware Sampling Loop
 - ATmega328P C++ telemetry loop
+
+
+## Proteus VSM Netlist
+- Hardware simulation netlist file
