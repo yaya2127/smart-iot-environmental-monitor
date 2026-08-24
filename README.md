@@ -72,3 +72,5 @@ Developed by **Yared Kinetibeb Tesfaye**
 - Microcontroller pin allocations
 
 <!-- AVR build flags -->
+
+<!-- UART baud rate buffer tuning -->
