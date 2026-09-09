@@ -76,3 +76,5 @@ Developed by **Yared Kinetibeb Tesfaye**
 <!-- UART baud rate buffer tuning -->
 
 <!-- sep09_surge_commit_1 -->
+
+<!-- sep09_surge_commit_2 -->
